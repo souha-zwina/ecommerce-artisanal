@@ -1,39 +1,97 @@
-
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+@include mat.core();
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+  )
+));
+
+html { @include mat.all-component-themes($theme); }
+
+* { box-sizing: border-box; }
+
+body { margin: 0; font-family: Roboto, sans-serif; }
+
+/* ── Page layout ───────────────────────────── */
+.page-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  color: #1F3864;
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Dashboard ─────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  text-align: center;
+  mat-icon { font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; }
+  .stat-value { font-size: 28px; font-weight: 600; }
+  .stat-label { font-size: 13px; color: #666; margin-top: 4px; }
+
+  &--blue   { mat-icon { color: #2196F3; } .stat-value { color: #1565C0; } }
+  &--green  { mat-icon { color: #4CAF50; } .stat-value { color: #1B5E20; } }
+  &--orange { mat-icon { color: #FF9800; } .stat-value { color: #E65100; } }
+  &--purple { mat-icon { color: #9C27B0; } .stat-value { color: #4A148C; } }
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.alert-stock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFF3E0;
+  border: 1px solid #FFB74D;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  color: #E65100;
+}
+
+/* ── Status badges ─────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.badge-pending   { background: #FFF9C4; color: #F57F17; }
+.badge-confirmed { background: #E3F2FD; color: #1565C0; }
+.badge-shipped   { background: #FFF3E0; color: #E65100; }
+.badge-delivered { background: #E8F5E9; color: #1B5E20; }
+.badge-cancelled { background: #FFEBEE; color: #B71C1C; }
+.badge-warning   { background: #FFF3E0; color: #E65100; }
+.badge-success   { background: #E8F5E9; color: #1B5E20; }

@@ -1,0 +1,76 @@
+<h1 class="page-title">Tableau de bord</h1>
+
+<!-- KPI Cards -->
+<div class="stats-grid">
+  @for (stat of stats; track stat.label) {
+    <mat-card class="stat-card" [class]="'stat-card--' + stat.color">
+      <mat-card-content>
+        <mat-icon>{{ stat.icon }}</mat-icon>
+        <div class="stat-value">{{ stat.value | number }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>
+
+<!-- Alert stock faible -->
+@if (summary && summary.lowStockCount > 0) {
+  <div class="alert-stock">
+    <mat-icon color="warn">warning</mat-icon>
+    <span>{{ summary.lowStockCount }} produit(s) avec stock &lt; 5 unités</span>
+    <a routerLink="/products" style="margin-left:8px;color:#C55A11">Voir →</a>
+  </div>
+}
+
+<!-- Charts -->
+<div class="charts-grid">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Commandes – 30 derniers jours</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line"></canvas>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Répartition par statut</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <canvas baseChart [data]="doughnutData" type="doughnut"></canvas>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Recent Orders -->
+<mat-card style="margin-top:24px">
+  <mat-card-header>
+    <mat-card-title>Dernières commandes</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-table [dataSource]="recentOrders">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+        <mat-cell *matCellDef="let o">{{ o.id }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="client">
+        <mat-header-cell *matHeaderCellDef>Client</mat-header-cell>
+        <mat-cell *matCellDef="let o">{{ o.clientName }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
+        <mat-cell *matCellDef="let o">{{ o.total | currency:'MAD ' }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
+        <mat-cell *matCellDef="let o">
+          <span [class]="'badge badge-' + o.status.toLowerCase()">{{ o.status }}</span>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedCols"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedCols;"
+               [routerLink]="['/orders', row.id]" style="cursor:pointer"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

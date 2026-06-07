@@ -1,0 +1,13 @@
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1F3864 0%, #2E75B6 100%);
+}
+.login-card {
+  width: 400px;
+  padding: 16px;
+  mat-card-title { font-size: 22px; }
+}
+.full-width { width: 100%; margin-bottom: 12px; }

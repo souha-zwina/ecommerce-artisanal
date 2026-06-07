@@ -1,0 +1,61 @@
+<!-- src/app/features/orders/order-detail/order-detail.html -->
+<div style="margin-bottom:16px">
+  <a routerLink="/orders" mat-button>
+    <mat-icon>arrow_back</mat-icon> Retour aux commandes
+  </a>
+</div>
+
+@if (order) {
+  <h1 class="page-title">Commande {{ order.id }}</h1>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Informations Client</mat-card-title>
+      </mat-card-header>
+      <mat-card-content style="padding-top:12px">
+        <p><strong>Nom :</strong> {{ order.clientName }}</p>
+        <p><strong>Email :</strong> {{ order.clientEmail }}</p>
+        <p><strong>Adresse :</strong> {{ order.address }}</p>
+        <p><strong>Date :</strong> {{ order.createdAt | date:'dd/MM/yyyy' }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Statut de la Commande</mat-card-title>
+      </mat-card-header>
+      <mat-card-content style="padding-top:12px">
+        <p>Statut actuel :
+          <span [class]="'badge badge-' + order.status.toLowerCase()">
+            {{ order.status }}
+          </span>
+        </p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+          @for (action of nextActions[order.status]; track action) {
+            <button mat-raised-button color="primary" (click)="changeStatus(action)">
+              → {{ action }}
+            </button>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card style="margin-top:24px">
+    <mat-card-header>
+      <mat-card-title>Articles commandés</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @for (item of order.items; track item.productName) {
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee">
+          <span>{{ item.productName }} × {{ item.quantity }}</span>
+          <strong>{{ item.price * item.quantity | currency:'MAD ' }}</strong>
+        </div>
+      }
+      <div style="display:flex;justify-content:flex-end;padding-top:12px">
+        <strong>Total : {{ order.total | currency:'MAD ' }}</strong>
+      </div>
+    </mat-card-content>
+  </mat-card>
+}

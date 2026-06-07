@@ -1,0 +1,65 @@
+<div class="page-header">
+  <h1 class="page-title">Produits Artisanaux</h1>
+  <div class="header-actions">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Rechercher</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput (input)="onSearch($event)" placeholder="Nom, catégorie...">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="openCreate()">
+      <mat-icon>add</mat-icon> Nouveau produit
+    </button>
+  </div>
+</div>
+
+<mat-card>
+  <mat-table [dataSource]="filtered">
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Produit</mat-header-cell>
+      <mat-cell *matCellDef="let p"><strong>{{ p.name }}</strong><br>
+        <small style="color:#888">{{ p.artisan }} – {{ p.city }}</small>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef>Catégorie</mat-header-cell>
+      <mat-cell *matCellDef="let p">{{ p.category }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef>Prix</mat-header-cell>
+      <mat-cell *matCellDef="let p">{{ p.price | currency:'MAD ' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
+      <mat-cell *matCellDef="let p">
+        <span [class]="p.stock < 5 ? 'badge badge-pending' : 'badge badge-delivered'">
+          {{ p.stock }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let p">
+        <button mat-icon-button color="primary" (click)="openEdit(p)" title="Modifier">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="confirmDelete(p)" title="Supprimer">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="columns.length" style="text-align:center;padding:24px">
+        Aucun produit trouvé
+      </td>
+    </tr>
+  </mat-table>
+</mat-card>
