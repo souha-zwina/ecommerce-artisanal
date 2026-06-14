@@ -1,4 +1,3 @@
-// src/app/features/orders/order-detail/order-detail.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -18,10 +17,10 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
   templateUrl: './order-detail.html'
 })
 export class OrderDetailComponent implements OnInit {
-  private route = inject(ActivatedRoute);
+  private route        = inject(ActivatedRoute);
   private orderService = inject(OrderService);
-  private dialog = inject(MatDialog);
-  private snack = inject(MatSnackBar);
+  private dialog       = inject(MatDialog);
+  private snack        = inject(MatSnackBar);
 
   order: Order | null = null;
 
@@ -47,7 +46,7 @@ export class OrderDetailComponent implements OnInit {
     }).afterClosed().subscribe(ok => {
       if (ok && this.order) {
         this.orderService.changeStatus(this.order.id, newStatus).subscribe(() => {
-          this.order!.status = newStatus as Order['status'];
+          this.order!.statut = newStatus;
           this.snack.open('Statut mis à jour !', 'OK', { duration: 3000 });
         });
       }

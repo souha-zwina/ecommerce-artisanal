@@ -13,29 +13,29 @@ import { OrderService, Order } from '../../../core/services/order.service';
   selector: 'app-orders-list',
   standalone: true,
   imports: [CommonModule, RouterLink, MatTableModule, MatCardModule,
-    MatButtonModule, MatButtonToggleModule, MatIconModule, FormsModule,
-    CurrencyPipe, DatePipe],
+    MatButtonModule, MatButtonToggleModule, MatIconModule,
+    FormsModule, CurrencyPipe, DatePipe],
   templateUrl: './orders-list.html',
   styleUrl: './orders-list.scss'
 })
 export class OrdersListComponent implements OnInit {
   private orderService = inject(OrderService);
 
-  orders: Order[] = [];
+  orders: Order[]  = [];
   filtered: Order[] = [];
   statusFilter = '';
-  columns = ['id', 'client', 'total', 'status', 'date', 'actions'];
+  columns = ['id', 'client', 'total', 'statut', 'date', 'actions'];
 
   ngOnInit() {
     this.orderService.getAll().subscribe(data => {
-      this.orders = data;
+      this.orders  = data;
       this.filtered = data;
     });
   }
 
   onStatusFilter() {
     this.filtered = this.statusFilter
-      ? this.orders.filter(o => o.status === this.statusFilter)
+      ? this.orders.filter(o => o.statut === this.statusFilter)
       : this.orders;
   }
 }

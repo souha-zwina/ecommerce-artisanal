@@ -46,7 +46,7 @@ export class ProductsListComponent implements OnInit {
   onSearch(e: Event) {
     const q = (e.target as HTMLInputElement).value.toLowerCase();
     this.filtered = this.products.filter(p =>
-      p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+      p.nom.toLowerCase().includes(q) || p.categorie.toLowerCase().includes(q)
     );
   }
 
@@ -76,7 +76,7 @@ export class ProductsListComponent implements OnInit {
 
   confirmDelete(product: Product) {
     this.dialog.open(ConfirmDialogComponent, {
-      data: { message: `Supprimer "${product.name}" ?` }
+      data: { message: `Supprimer "${product.nom}" ?` }
     }).afterClosed().subscribe(ok => {
       if (ok && product.id) {
         this.productService.delete(product.id).subscribe(() => {

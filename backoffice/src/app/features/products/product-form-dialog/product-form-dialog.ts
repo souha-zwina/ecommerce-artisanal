@@ -19,7 +19,7 @@ import { Product } from '../../../core/services/product.service';
       <form [formGroup]="form" style="display:flex;flex-direction:column;gap:12px;padding-top:8px">
         <mat-form-field appearance="outline">
           <mat-label>Nom du produit</mat-label>
-          <input matInput formControlName="name">
+          <input matInput formControlName="nom">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Description</mat-label>
@@ -28,7 +28,7 @@ import { Product } from '../../../core/services/product.service';
         <div style="display:flex;gap:12px">
           <mat-form-field appearance="outline" style="flex:1">
             <mat-label>Prix (MAD)</mat-label>
-            <input matInput type="number" formControlName="price">
+            <input matInput type="number" formControlName="prix">
           </mat-form-field>
           <mat-form-field appearance="outline" style="flex:1">
             <mat-label>Stock</mat-label>
@@ -37,22 +37,24 @@ import { Product } from '../../../core/services/product.service';
         </div>
         <mat-form-field appearance="outline">
           <mat-label>Catégorie</mat-label>
-          <mat-select formControlName="category">
+          <mat-select formControlName="categorie">
             <mat-option value="poterie">Poterie</mat-option>
             <mat-option value="tissage">Tissage</mat-option>
             <mat-option value="bijoux">Bijoux</mat-option>
             <mat-option value="vannerie">Vannerie</mat-option>
             <mat-option value="bois">Bois</mat-option>
+            <mat-option value="Décoration">Décoration</mat-option>
+            <mat-option value="Luminaire">Luminaire</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <!--<mat-form-field appearance="outline">
           <mat-label>Artisan</mat-label>
           <input matInput formControlName="artisan">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Ville</mat-label>
           <input matInput formControlName="city">
-        </mat-form-field>
+        </mat-form-field>-->
       </form>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
@@ -76,13 +78,11 @@ export class ProductFormDialogComponent {
     // ← tout initialisé ICI dans le constructeur, pas au niveau de la classe
     this.isEdit = !!data.product;
     this.form = this.fb.group({
-      name:        [data.product?.name        || '', [Validators.required]],
+      nom:         [data.product?.nom         || '', [Validators.required]],  // ← nom
       description: [data.product?.description || '', [Validators.required]],
-      price:       [data.product?.price       ?? null, [Validators.required, Validators.min(1)]],
+      prix:        [data.product?.prix        ?? null, [Validators.required, Validators.min(1)]],  // ← prix
       stock:       [data.product?.stock       ?? null, [Validators.required, Validators.min(0)]],
-      category:    [data.product?.category    || '', [Validators.required]],
-      artisan:     [data.product?.artisan     || ''],
-      city:        [data.product?.city        || ''],
+      categorie:   [data.product?.categorie   || '', [Validators.required]],  // ← categorie
     });
   }
 

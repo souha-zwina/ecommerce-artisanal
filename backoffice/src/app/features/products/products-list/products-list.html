@@ -17,27 +17,25 @@
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Produit</mat-header-cell>
-      <mat-cell *matCellDef="let p"><strong>{{ p.name }}</strong><br>
-        <small style="color:#888">{{ p.artisan }} – {{ p.city }}</small>
-      </mat-cell>
+      <mat-cell *matCellDef="let p"><strong>{{ p.nom }}</strong></mat-cell>  <!-- ← nom -->
     </ng-container>
 
     <ng-container matColumnDef="category">
       <mat-header-cell *matHeaderCellDef>Catégorie</mat-header-cell>
-      <mat-cell *matCellDef="let p">{{ p.category }}</mat-cell>
+      <mat-cell *matCellDef="let p">{{ p.categorie }}</mat-cell>  <!-- ← categorie -->
     </ng-container>
 
     <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef>Prix</mat-header-cell>
-      <mat-cell *matCellDef="let p">{{ p.price | currency:'MAD ' }}</mat-cell>
+      <mat-cell *matCellDef="let p">{{ p.prix | currency:'MAD ' }}</mat-cell>  <!-- ← prix -->
     </ng-container>
 
     <ng-container matColumnDef="stock">
       <mat-header-cell *matHeaderCellDef>Stock</mat-header-cell>
       <mat-cell *matCellDef="let p">
-        <span [class]="p.stock < 5 ? 'badge badge-pending' : 'badge badge-delivered'">
-          {{ p.stock }}
-        </span>
+    <span [class]="p.stock < 5 ? 'badge badge-pending' : 'badge badge-delivered'">
+      {{ p.stock }}
+    </span>
       </mat-cell>
     </ng-container>
 

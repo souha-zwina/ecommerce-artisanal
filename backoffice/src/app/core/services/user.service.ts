@@ -5,10 +5,11 @@ import { Observable, of, delay } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 export interface Utilisateur {
-  id: string;
+  id?: string;
   nom: string;
+  prenom?: string;
   email: string;
-  role: 'USER' | 'ADMIN';
+  role: 'CLIENT' | 'ADMIN';
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,9 +20,8 @@ export class UserService {
   getAll(): Observable<Utilisateur[]> {
     // return this.http.get<Utilisateur[]>(this.base);
     return of([
-      { id:'1', nom:'Youssef Amrani',  email:'y.amrani@email.com',  role:'USER'  as const },
-      { id:'2', nom:'Sara Benali',     email:'s.benali@email.com',  role:'USER'  as const },
-      { id:'3', nom:'Admin Artisan',   email:'admin@artisan.ma',    role:'ADMIN' as const },
+      { id:'1', nom:'Admin',  prenom:'Super', email:'admin@test.com',     role:'ADMIN'  as const },
+      { id:'2', nom:'Test',   prenom:'',      email:'test@example.com',   role:'CLIENT' as const },
     ]).pipe(delay(300));
   }
 

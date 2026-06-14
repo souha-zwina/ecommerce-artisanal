@@ -1,6 +1,9 @@
 <h1 class="page-title">Gestion des Commandes</h1>
 
-<mat-button-toggle-group [(ngModel)]="statusFilter" (change)="onStatusFilter()" style="margin-bottom:16px">
+<mat-button-toggle-group
+  [(ngModel)]="statusFilter"
+  (change)="onStatusFilter()"
+  style="margin-bottom:16px">
   <mat-button-toggle value="">Toutes</mat-button-toggle>
   <mat-button-toggle value="PENDING">En attente</mat-button-toggle>
   <mat-button-toggle value="CONFIRMED">Confirmées</mat-button-toggle>
@@ -13,35 +16,47 @@
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>N° Commande</mat-header-cell>
-      <mat-cell *matCellDef="let o"><strong>{{ o.id }}</strong></mat-cell>
+      <mat-cell *matCellDef="let o">
+        <strong>{{ o.id | slice:0:8 }}...</strong>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="client">
       <mat-header-cell *matHeaderCellDef>Client</mat-header-cell>
-      <mat-cell *matCellDef="let o">{{ o.clientName }}</mat-cell>
+      <mat-cell *matCellDef="let o">
+        {{ o.utilisateurId | slice:0:8 }}...
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="total">
       <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
-      <mat-cell *matCellDef="let o">{{ o.total | currency:'MAD ' }}</mat-cell>
+      <mat-cell *matCellDef="let o">
+        {{ o.total | currency:'MAD ' }}
+      </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="status">
+    <ng-container matColumnDef="statut">
       <mat-header-cell *matHeaderCellDef>Statut</mat-header-cell>
       <mat-cell *matCellDef="let o">
-        <span [class]="'badge badge-' + o.status.toLowerCase()">{{ o.status }}</span>
+        <span [class]="'badge badge-' + o.statut.toLowerCase()">
+          {{ o.statut }}
+        </span>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-      <mat-cell *matCellDef="let o">{{ o.createdAt | date:'dd/MM/yyyy' }}</mat-cell>
+      <mat-cell *matCellDef="let o">
+        {{ o.dateCommande | date:'dd/MM/yyyy' }}
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
       <mat-cell *matCellDef="let o">
-        <button mat-icon-button [routerLink]="['/orders', o.id]" title="Voir détail">
+        <button mat-icon-button
+                [routerLink]="['/orders', o.id]"
+                title="Voir détail">
           <mat-icon>visibility</mat-icon>
         </button>
       </mat-cell>
@@ -49,5 +64,14 @@
 
     <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell"
+          [attr.colspan]="columns.length"
+          style="text-align:center;padding:24px;color:#888">
+        Aucune commande trouvée
+      </td>
+    </tr>
+
   </mat-table>
 </mat-card>

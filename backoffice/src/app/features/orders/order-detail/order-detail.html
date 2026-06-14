@@ -1,4 +1,3 @@
-<!-- src/app/features/orders/order-detail/order-detail.html -->
 <div style="margin-bottom:16px">
   <a routerLink="/orders" mat-button>
     <mat-icon>arrow_back</mat-icon> Retour aux commandes
@@ -6,18 +5,19 @@
 </div>
 
 @if (order) {
-  <h1 class="page-title">Commande {{ order.id }}</h1>
+  <h1 class="page-title">Commande {{ order.id | slice:0:8 }}...</h1>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Informations Client</mat-card-title>
+        <mat-card-title>Informations</mat-card-title>
       </mat-card-header>
       <mat-card-content style="padding-top:12px">
-        <p><strong>Nom :</strong> {{ order.clientName }}</p>
-        <p><strong>Email :</strong> {{ order.clientEmail }}</p>
-        <p><strong>Adresse :</strong> {{ order.address }}</p>
-        <p><strong>Date :</strong> {{ order.createdAt | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Client ID :</strong> {{ order.utilisateurId }}</p>
+        <p><strong>Produits :</strong> {{ order.produitIds.length }} article(s)</p>
+        <p><strong>Date :</strong> {{ order.dateCommande | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p><strong>Total :</strong> {{ order.total | currency:'MAD ' }}</p>
       </mat-card-content>
     </mat-card>
 
@@ -27,35 +27,48 @@
       </mat-card-header>
       <mat-card-content style="padding-top:12px">
         <p>Statut actuel :
-          <span [class]="'badge badge-' + order.status.toLowerCase()">
-            {{ order.status }}
+          <span [class]="'badge badge-' + order.statut.toLowerCase()">
+            {{ order.statut }}
           </span>
         </p>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
-          @for (action of nextActions[order.status]; track action) {
+          @for (action of nextActions[order.statut]; track action) {
             <button mat-raised-button color="primary" (click)="changeStatus(action)">
               → {{ action }}
             </button>
           }
+          @if (nextActions[order.statut]?.length === 0) {
+            <p style="color:#888;font-style:italic">Aucune action disponible</p>
+          }
         </div>
       </mat-card-content>
     </mat-card>
+
   </div>
 
   <mat-card style="margin-top:24px">
     <mat-card-header>
-      <mat-card-title>Articles commandés</mat-card-title>
+      <mat-card-title>Produits commandés (IDs)</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      @for (item of order.items; track item.productName) {
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee">
-          <span>{{ item.productName }} × {{ item.quantity }}</span>
-          <strong>{{ item.price * item.quantity | currency:'MAD ' }}</strong>
+      @for (produitId of order.produitIds; track produitId) {
+        <div style="display:flex;justify-content:space-between;
+                    padding:10px 0;border-bottom:1px solid #eee">
+          <span style="font-family:monospace;color:#555">{{ produitId }}</span>
         </div>
       }
-      <div style="display:flex;justify-content:flex-end;padding-top:12px">
-        <strong>Total : {{ order.total | currency:'MAD ' }}</strong>
+      <div style="display:flex;justify-content:flex-end;
+                  padding-top:12px;font-weight:600">
+        Total : {{ order.total | currency:'MAD ' }}
       </div>
     </mat-card-content>
   </mat-card>
+}
+
+@if (!order) {
+  <div style="text-align:center;padding:48px;color:#888">
+    <mat-icon style="font-size:48px;width:48px;height:48px">search_off</mat-icon>
+    <p>Commande introuvable</p>
+    <a routerLink="/orders" mat-raised-button color="primary">Retour</a>
+  </div>
 }
