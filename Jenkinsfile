@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_USERNAME = 'ahuusas'  // ← METTEZ VOTRE USERNAME
+        DOCKER_HUB_USERNAME = 'souhaila'  // ← METTEZ VOTRE USERNAME
         DOCKER_IMAGE_NAME = 'artisanal-backend'
         DOCKER_TAG = 'latest'
     }
@@ -10,7 +10,10 @@ pipeline {
     stages {
         stage('Build Maven') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh '''
+                    chmod +x mvnw
+                    ./mvnw clean package -DskipTests
+                '''
             }
         }
 
