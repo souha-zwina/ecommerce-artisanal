@@ -28,4 +28,8 @@ public class UtilisateurService {
         utilisateur.setId(id);
         return utilisateurRepository.save(utilisateur);
     }
+    
+    public List<Utilisateur> getTousLesUtilisateurs() {
+        return utilisateurRepository.findAll();
+    }
 }
