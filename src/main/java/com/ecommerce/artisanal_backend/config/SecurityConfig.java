@@ -24,9 +24,10 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                        // 🔓 PERMET TOUT ACCÈS SANS AUTHENTIFICATION
+                        .anyRequest().permitAll()
                 )
+                // ✅ On garde le filtre JWT mais il n'empêche plus rien
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
