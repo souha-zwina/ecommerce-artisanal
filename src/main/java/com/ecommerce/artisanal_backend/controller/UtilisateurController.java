@@ -4,7 +4,7 @@ import com.ecommerce.artisanal_backend.model.Utilisateur;
 import com.ecommerce.artisanal_backend.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 @RestController
 @RequestMapping("/api/utilisateurs")
 @CrossOrigin(origins = "*")
@@ -28,5 +28,10 @@ public class UtilisateurController {
     public Utilisateur modifierProfil(@PathVariable String id,
                                       @RequestBody Utilisateur utilisateur) {
         return utilisateurService.modifierProfil(id, utilisateur);
+    }
+
+    @GetMapping
+    public List<Utilisateur> getTousLesUtilisateurs() {
+        return utilisateurService.getTousLesUtilisateurs();
     }
 }

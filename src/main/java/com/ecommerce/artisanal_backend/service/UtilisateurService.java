@@ -5,7 +5,7 @@ import com.ecommerce.artisanal_backend.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
-
+import java.util.List;
 @Service
 public class UtilisateurService {
 
@@ -27,5 +27,9 @@ public class UtilisateurService {
     public Utilisateur modifierProfil(String id, Utilisateur utilisateur) {
         utilisateur.setId(id);
         return utilisateurRepository.save(utilisateur);
+    }
+    
+    public List<Utilisateur> getTousLesUtilisateurs() {
+        return utilisateurRepository.findAll();
     }
 }
