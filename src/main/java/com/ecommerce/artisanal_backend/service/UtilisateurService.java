@@ -5,7 +5,7 @@ import com.ecommerce.artisanal_backend.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
-
+import java.util.List;
 @Service
 public class UtilisateurService {
 
