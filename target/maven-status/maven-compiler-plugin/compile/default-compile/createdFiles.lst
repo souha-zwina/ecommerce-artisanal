@@ -1,0 +1,17 @@
+com\ecommerce\artisanal_backend\ArtisanalBackendApplication.class
+com\ecommerce\artisanal_backend\service\CommandeService.class
+com\ecommerce\artisanal_backend\controller\CommandeController.class
+com\ecommerce\artisanal_backend\model\Commande.class
+com\ecommerce\artisanal_backend\repository\UtilisateurRepository.class
+com\ecommerce\artisanal_backend\model\Utilisateur.class
+com\ecommerce\artisanal_backend\security\JwtFilter.class
+com\ecommerce\artisanal_backend\controller\ProduitController.class
+com\ecommerce\artisanal_backend\config\SecurityConfig.class
+com\ecommerce\artisanal_backend\repository\ProduitRepository.class
+com\ecommerce\artisanal_backend\repository\CommandeRepository.class
+com\ecommerce\artisanal_backend\controller\AuthController.class
+com\ecommerce\artisanal_backend\controller\UtilisateurController.class
+com\ecommerce\artisanal_backend\service\ProduitService.class
+com\ecommerce\artisanal_backend\service\UtilisateurService.class
+com\ecommerce\artisanal_backend\model\Produit.class
+com\ecommerce\artisanal_backend\security\JwtUtil.class

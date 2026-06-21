@@ -1,0 +1,17 @@
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\ArtisanalBackendApplication.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\config\SecurityConfig.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\controller\AuthController.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\controller\CommandeController.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\controller\ProduitController.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\controller\UtilisateurController.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\model\Commande.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\model\Produit.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\model\Utilisateur.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\repository\CommandeRepository.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\repository\ProduitRepository.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\repository\UtilisateurRepository.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\security\JwtFilter.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\security\JwtUtil.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\service\CommandeService.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\service\ProduitService.java
+C:\projet_Ecommerce\artisanal-backend\src\main\java\com\ecommerce\artisanal_backend\service\UtilisateurService.java
