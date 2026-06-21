@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:17-alpine
 WORKDIR /app
 COPY target/artisanal-backend-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
