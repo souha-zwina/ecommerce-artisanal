@@ -29,4 +29,9 @@ public class UtilisateurController {
                                       @RequestBody Utilisateur utilisateur) {
         return utilisateurService.modifierProfil(id, utilisateur);
     }
+
+    @GetMapping
+    public List<Utilisateur> getTousLesUtilisateurs() {
+        return utilisateurService.getTousLesUtilisateurs();
+    }
 }
