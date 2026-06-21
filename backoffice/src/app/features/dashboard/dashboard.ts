@@ -1,36 +1,38 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartData, ChartOptions } from 'chart.js';
-import {
-  Chart, registerables
-} from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 import { StatisticsService, DashboardSummary } from '../../core/services/statistics.service';
+import { OrderService, Order } from '../../core/services/order.service';
+import { UserService } from '../../core/services/user.service';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatTableModule, RouterLink, BaseChartDirective, CurrencyPipe],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatTableModule,
+    RouterLink, BaseChartDirective, CurrencyPipe, DatePipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
 export class DashboardComponent implements OnInit {
   private statsService = inject(StatisticsService);
+  private orderService = inject(OrderService);
+  private userService = inject(UserService);
 
   summary: DashboardSummary | null = null;
 
   stats = [
-    { label: 'Utilisateurs',   value: 0, icon: 'people',        color: 'blue'   },
-    { label: 'Produits',       value: 0, icon: 'inventory_2',   color: 'green'  },
-    { label: 'Commandes auj.', value: 0, icon: 'shopping_cart', color: 'orange' },
-    { label: 'CA ce mois (MAD)',value: 0, icon: 'payments',     color: 'purple' },
+    { label: 'Utilisateurs',    value: 0, icon: 'people',        color: 'blue'   },
+    { label: 'Produits',        value: 0, icon: 'inventory_2',   color: 'green'  },
+    { label: 'Commandes auj.',  value: 0, icon: 'shopping_cart', color: 'orange' },
   ];
 
   lineChartData: ChartData<'line'> = {
@@ -55,13 +57,9 @@ export class DashboardComponent implements OnInit {
     datasets: [{ data: [], backgroundColor: [] }]
   };
 
-  recentOrders = [
-    { id: 'ORD-001', clientName: 'Youssef Amrani', total: 560,  status: 'PENDING'   },
-    { id: 'ORD-002', clientName: 'Sara Benali',    total: 2800, status: 'CONFIRMED' },
-    { id: 'ORD-003', clientName: 'Karim Tazi',     total: 380,  status: 'SHIPPED'   },
-    { id: 'ORD-004', clientName: 'Nadia El Fassi', total: 340,  status: 'DELIVERED' },
-  ];
-  displayedCols = ['id', 'client', 'total', 'status'];
+  recentOrders: Order[] = [];
+  userNames: { [id: string]: string } = {};
+  displayedCols = ['id', 'client', 'total', 'statut', 'date'];
 
   ngOnInit() {
     this.statsService.getSummary().subscribe(data => {
@@ -69,7 +67,6 @@ export class DashboardComponent implements OnInit {
       this.stats[0].value = data.totalUsers;
       this.stats[1].value = data.totalProducts;
       this.stats[2].value = data.ordersToday;
-      this.stats[3].value = data.monthlyRevenue;
     });
 
     this.statsService.getOrdersTrend().subscribe(trend => {
@@ -86,5 +83,20 @@ export class DashboardComponent implements OnInit {
         datasets: [{ data: statuses.map(s => s.count), backgroundColor: statuses.map(s => s.color) }]
       };
     });
+
+    // Charger les 5 dernières vraies commandes + les noms clients
+    this.userService.getAll().subscribe(users => {
+      users.forEach(u => this.userNames[u.id] = u.nom);
+    });
+
+    this.orderService.getAll().subscribe(orders => {
+      this.recentOrders = [...orders]
+        .sort((a, b) => new Date(b.dateCommande).getTime() - new Date(a.dateCommande).getTime())
+        .slice(0, 5);
+    });
+  }
+
+  getClientName(utilisateurId: string): string {
+    return this.userNames[utilisateurId] || 'Client inconnu';
   }
 }

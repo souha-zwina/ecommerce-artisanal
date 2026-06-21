@@ -24,7 +24,7 @@
     <ng-container matColumnDef="client">
       <mat-header-cell *matHeaderCellDef>Client</mat-header-cell>
       <mat-cell *matCellDef="let o">
-        {{ o.utilisateurId | slice:0:8 }}...
+        {{ getClientName(o.utilisateurId) }}
       </mat-cell>
     </ng-container>
 

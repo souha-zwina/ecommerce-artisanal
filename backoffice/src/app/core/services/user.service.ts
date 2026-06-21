@@ -5,7 +5,7 @@ import { Observable, of, delay } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 export interface Utilisateur {
-  id?: string;
+  id: string;
   nom: string;
   prenom?: string;
   email: string;
@@ -18,11 +18,11 @@ export class UserService {
   private base = `${environment.apiUrl}/utilisateurs`;
 
   getAll(): Observable<Utilisateur[]> {
-    // return this.http.get<Utilisateur[]>(this.base);
-    return of([
+    return this.http.get<Utilisateur[]>(this.base);
+    /*return of([
       { id:'1', nom:'Admin',  prenom:'Super', email:'admin@test.com',     role:'ADMIN'  as const },
       { id:'2', nom:'Test',   prenom:'',      email:'test@example.com',   role:'CLIENT' as const },
-    ]).pipe(delay(300));
+    ]).pipe(delay(300));*/
   }
 
   getByEmail(email: string): Observable<Utilisateur> {

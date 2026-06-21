@@ -36,11 +36,11 @@ import { AuthService } from '../../core/services/auth.service';
         <span matListItemTitle>Utilisateurs</span>
       </a>
       <mat-divider></mat-divider>
-      <p mat-subheader>COMMUNICATION</p>
+      <!--<p mat-subheader>COMMUNICATION</p>
       <a mat-list-item routerLink="/notifications" routerLinkActive="active-link">
         <mat-icon matListItemIcon>notifications</mat-icon>
         <span matListItemTitle>Notifications</span>
-      </a>
+      </a>-->
     </mat-nav-list>
     <div class="logout-area">
       <button mat-list-item (click)="logout()">

@@ -14,10 +14,12 @@
       <mat-header-cell *matHeaderCellDef>Nom</mat-header-cell>
       <mat-cell *matCellDef="let u"><strong>{{ u.nom }}</strong></mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
       <mat-cell *matCellDef="let u">{{ u.email }}</mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="role">
       <mat-header-cell *matHeaderCellDef>Rôle</mat-header-cell>
       <mat-cell *matCellDef="let u">
@@ -26,15 +28,25 @@
         </span>
       </mat-cell>
     </ng-container>
+
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
       <mat-cell *matCellDef="let u">
-        <button mat-icon-button color="primary" title="Voir profil">
-          <mat-icon>visibility</mat-icon>
+        <button mat-icon-button color="primary"
+                (click)="toggleRole(u)"
+                [title]="u.role === 'ADMIN' ? 'Rétrograder en Client' : 'Promouvoir Admin'">
+          <mat-icon>{{ u.role === 'ADMIN' ? 'arrow_downward' : 'arrow_upward' }}</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
+
     <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="columns.length" style="text-align:center;padding:24px;color:#888">
+        Aucun utilisateur trouvé
+      </td>
+    </tr>
   </mat-table>
 </mat-card>

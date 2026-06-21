@@ -43,12 +43,6 @@ export const routes: Routes = [
           import('./features/users/users-list/users-list')
             .then(m => m.UsersListComponent)
       },
-      {
-        path: 'notifications',
-        loadComponent: () =>
-          import('./features/notifications/notifications-send/notifications-send')
-            .then(m => m.NotificationsSendComponent)
-      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
