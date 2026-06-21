@@ -6,8 +6,8 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Étape 2 : Exécution avec JRE
-FROM openjdk:17-jdk-slim
+# Étape 2 : Exécution avec JRE (corrigé)
+FROM eclipse-temurin:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
